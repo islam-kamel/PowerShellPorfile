@@ -430,9 +430,9 @@ function unzip {
 }
 
 function commit {
-    param([string]$message)
-    If (-Not $message){
+    param([string]$Message)
+    If (-Not $Message){
         Write-Error "Type commit message!"
     }
-    git commit -m "$message"
+    git commit -m "$Message"
 }
