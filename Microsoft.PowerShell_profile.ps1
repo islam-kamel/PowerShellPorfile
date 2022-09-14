@@ -436,3 +436,8 @@ function commit {
     }
     git commit -m "$Message"
 }
+
+function push{
+    param([string]$Remote, [string]$Branch)
+    git push $Remote $Branch
+}
