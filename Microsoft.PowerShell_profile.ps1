@@ -441,3 +441,8 @@ function push{
     param([string]$Remote, [string]$Branch)
     git push $Remote $Branch
 }
+
+function add {
+    param([string]$Path)
+    git add $Path
+}
