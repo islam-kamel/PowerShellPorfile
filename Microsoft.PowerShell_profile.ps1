@@ -398,17 +398,14 @@ if (Test-Path($ChocolateyProfile)) {
 function zip {
     Param([string]$Path, [string]$DestinationPath)
     $date = Get-Date -Format 'yyy-MM-dd'
-    If (-Not (Test-Path $Path))
-    {
+    If (-Not (Test-Path $Path)) {
         Throw "Enter valid path."
     }
-    If(-Not $DestinationPath)
-    {
+    If (-Not $DestinationPath) {
         $DestinationPath = "./$('Archive' + $date)"
     }
     $DestinationFile = "$($DestinationPath + '.zip')"
-    If ((Test-Path $DestinationFile)) 
-    {
+    If ((Test-Path $DestinationFile)) {
         Throw "$DestinationFile .zip alrady exists."
     }
     Compress-Archive -Path $Path -CompressionLevel 'Fastest' -DestinationPath "$($DestinationPath + '.zip')"
@@ -417,12 +414,10 @@ function zip {
 
 function unzip {
     Param([string]$Path, [string]$DestinationPath)
-    If (-Not (Test-Path $Path))
-    {
+    If (-Not (Test-Path $Path)) {
         Throw "Enter valid path."
     }
-    If(-Not $DestinationPath)
-    {
+    If (-Not $DestinationPath) {
         $DestinationPath = "./"
     }
     Expand-Archive -Path $Path  -DestinationPath $DestinationPath
@@ -430,19 +425,26 @@ function unzip {
 }
 
 function commit {
-    param([string]$Message)
-    If (-Not $Message){
+    param([string]$message)
+    If (-Not $message) {
         Write-Error "Type commit message!"
     }
-    git commit -m "$Message"
-}
-
-function push{
-    param([string]$Remote, [string]$Branch)
-    git push $Remote $Branch
+    git commit -m "$message"
 }
 
 function add {
     param([string]$Path)
     git add $Path
+}
+
+function status { git status }
+
+function push {
+    param([string]$Remote, [string]$Branch)
+    git push $Remote $Branch
+}
+
+function pull {
+    param([string]$Remote, [string]$Branch)
+    git push $Remote $Branch
 }
