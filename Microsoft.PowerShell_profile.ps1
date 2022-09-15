@@ -461,7 +461,7 @@ function search{
 }
 
 function changeTitle{
-    $host.UI.RawUI.WindowTitle = Split-Path -Path (Get-Location) -Leaf
+    $host.UI.RawUI.WindowTitle = (Split-Path -Path (Get-Location) -Leaf).ToUpper()
 }
 
 If( Get-Alias | Select-String 'cd') {
