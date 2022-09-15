@@ -41,7 +41,6 @@ Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
-
 Set-PSReadLineKeyHandler -Key F7 `
     -BriefDescription History `
     -LongDescription 'Show command history' `
@@ -459,4 +458,19 @@ function search{
     If (-Not $Include){$Include = "*"}
     Out-Null $Pattern -Join ','
     Get-ChildItem $Path | Select-String -Include ($Include) -Pattern $Pattern | Select-Object LineNumber, FileName, Path
+}
+
+function changeTitle{
+    $host.UI.RawUI.WindowTitle = Split-Path -Path (Get-Location) -Leaf
+}
+
+If( Get-Alias | Select-String 'cd') {
+    Remove-Alias -Name cd
+}
+
+function cd {
+    Param([string]$Path)
+    Set-Location -Path $Path
+    changeTitle
+
 }
