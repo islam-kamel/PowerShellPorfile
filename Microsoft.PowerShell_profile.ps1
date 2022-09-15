@@ -448,3 +448,15 @@ function pull {
     param([string]$Remote, [string]$Branch)
     git push $Remote $Branch
 }
+
+function charm{
+    Param([string]$Path)
+    pytcharm $Path &
+}
+
+function search{
+    Param([string]$Path, [array]$Pattern, [string]$Include)
+    If (-Not $Include){$Include = "*"}
+    Out-Null $Pattern -Join ','
+    Get-ChildItem $Path | Select-String -Include ($Include) -Pattern $Pattern | Select-Object LineNumber, FileName, Path
+}
