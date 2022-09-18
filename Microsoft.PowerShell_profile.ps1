@@ -450,7 +450,7 @@ function pull {
 
 function charm{
     Param([string]$Path)
-    pytcharm $Path &
+    pycharm $Path &
 }
 
 function search{
