@@ -474,3 +474,11 @@ function cd {
     changeTitle
 
 }
+
+function rmdirs {
+    Param([string]$Path)
+    If(Test-Path $Path){
+        Remove-Item -Force -Recurse -Path $Path
+    }
+    Write-Error 'Directory not found 404.'
+}
