@@ -482,3 +482,12 @@ function rmdirs {
     }
     Write-Error 'Directory not found 404.'
 }
+
+function ij {
+    Param([string]$Path)
+    idea $Path &
+}
+
+function profile {
+    Set-Location -Path (Split-Path -Path $PROFILE)
+}
