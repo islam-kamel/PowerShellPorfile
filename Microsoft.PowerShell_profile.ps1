@@ -491,3 +491,7 @@ function ij {
 function profile {
     Set-Location -Path (Split-Path -Path $PROFILE)
 }
+
+function team {
+    D:\Progarm\TeamViewer_v15.5\run.bat &
+}
