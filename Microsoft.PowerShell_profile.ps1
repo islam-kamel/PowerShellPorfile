@@ -488,6 +488,11 @@ function ij {
     idea $Path &
 }
 
+function storm {
+    Param([string]$Path)
+    webstorm $Path &
+}
+
 function profile {
     Set-Location -Path (Split-Path -Path $PROFILE)
 }
