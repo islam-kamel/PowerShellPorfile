@@ -1,8 +1,11 @@
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
 
-
 oh-my-posh prompt init pwsh --config "C:\Users\eslam\AppData\Local\Programs\oh-my-posh\themes\kali.omp.json" | Invoke-Expression
+
+function changePrompt {
+    oh-my-posh prompt init pwsh --config "C:\Users\eslam\AppData\Local\Programs\oh-my-posh\themes\di4am0nd.omp.json" | Invoke-Expression
+}
 
 # Install Terminal Icons
 if (!(Get-Module -ListAvailable -Name Terminal-Icons)) {
@@ -443,6 +446,10 @@ function push {
     git push $Remote $Branch
 }
 
+function log {
+    git log --oneline --pretty=short --graph
+}
+
 function pull {
     param([string]$Remote, [string]$Branch)
     git push $Remote $Branch
@@ -501,3 +508,4 @@ function vi {
 	Param([string]$Path)
 	vim $Path
 }
+
