@@ -1,10 +1,13 @@
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
 
-oh-my-posh prompt init pwsh --config "C:\Users\eslam\AppData\Local\Programs\oh-my-posh\themes\kali.omp.json" | Invoke-Expression
+$PersonalWorkDir = "$env:WORKDIR\Personal"
+$WorkDir = "$env:WORKDIR\femtosec"
+
+oh-my-posh prompt init pwsh --config "$env:USERPROFILE\AppData\Local\Programs\oh-my-posh\themes\kali.omp.json" | Invoke-Expression
 
 function changePrompt {
-    oh-my-posh prompt init pwsh --config "C:\Users\eslam\AppData\Local\Programs\oh-my-posh\themes\di4am0nd.omp.json" | Invoke-Expression
+    oh-my-posh prompt init pwsh --config "$env:USERPROFILE\AppData\Local\Programs\oh-my-posh\themes\di4am0nd.omp.json" | Invoke-Expression
 }
 
 # Install Terminal Icons
@@ -386,7 +389,21 @@ Set-PSReadLineKeyHandler -Key F1 `
     }
 }
 
-function touch { New-Item -ItemType File -Name ($args[0]) }
+# function touch { New-Item -ItemType File -Name ($args[0]) }
+function touch
+{
+    Param([string]$File)
+
+    if(Test-Path $File)
+    {
+        (Get-ChildItem $File).LastWriteTime = Get-Date
+    }
+    else
+    {
+        New-Item -ItemType File -Name ($File)
+    }
+
+}
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
 # Be aware that if you are missing these lines from your profile, tab completion
@@ -447,12 +464,17 @@ function push {
 }
 
 function log {
-    git log --oneline --pretty=short --graph
+    git log --oneline --pretty=medium --graph
 }
 
 function pull {
     param([string]$Remote, [string]$Branch)
     git push $Remote $Branch
+}
+
+function clone {
+    param([String]$Url)
+    git clone $Url
 }
 
 function charm{
@@ -486,8 +508,8 @@ function rmdirs {
     Param([string]$Path)
     If(Test-Path $Path){
         Remove-Item -Force -Recurse -Path $Path
+        Write-Information 'Deleted Done 👍'
     }
-    Write-Error 'Directory not found 404.'
 }
 
 function ij {
@@ -512,4 +534,20 @@ function vi {
 function markdown {
     Param([string]$Path)
     Show-Markdown $Path -UseBrowser
+}
+
+function personal{
+    Set-Location $PersonalWorkDir
+}
+
+function work {
+    Set-Location $WorkDir
+}
+
+function otp {
+    Set-Clipboard $env:OTP
+}
+
+function passwords {
+    Set-Clipboard $env:PASSWORDS
 }
